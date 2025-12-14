@@ -324,7 +324,7 @@ async def predict(request: FenRequest):
                 best_move = result.move
                 safe_move = {
                     "move": best_move.uci(),
-                    "confidence": 1.0,
+                    "confidence": 0.0,
                     "is_fallback": True,
                     "status": "SELECTED" 
                 }
