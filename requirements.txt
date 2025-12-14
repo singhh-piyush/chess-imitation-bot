@@ -1,0 +1,9 @@
+fastapi==0.95.1
+uvicorn==0.22.0
+python-chess==1.999
+torch==2.0.1
+numpy==1.24.3
+pydantic==1.10.7
+websockets
+python-multipart
+httpx

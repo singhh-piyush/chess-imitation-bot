@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyber-950 text-slate-200 font-sans antialiased;
+    /* Subtle grid pattern */
+    background-image:
+      linear-gradient(to right, #1e293b 1px, transparent 1px),
+      linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center;
+  }
+}
+
+@layer components {
+
+  /* Gemini Wavy Animation */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-slow-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  .gemini-glow-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .gemini-glow-effect {
+    pointer-events: none;
+    position: absolute;
+    inset: 20px;
+    z-index: -1;
+    border-radius: 1rem;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 1.2s ease-in-out;
+  }
+
+  .gemini-glow-effect.active {
+    opacity: 0.25;
+    transform: scale(1.0);
+  }
+
+  .gemini-glow-effect.secondary {
+    transform: scale(0.95) rotate(45deg);
+    mix-blend-mode: plus-lighter;
+  }
+
+  .gemini-glow-effect.secondary.active {
+    transform: scale(1.0) rotate(45deg);
+  }
+
+  .gemini-glow-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Continuous color loop for full coverage ("circle" feel) */
+    background: conic-gradient(from 0deg, #3b82f6, #8b5cf6, #d946ef, #06b6d4, #3b82f6);
+    filter: blur(100px);
+    border-radius: 1rem;
+    animation: spin-slow 6s linear infinite;
+  }
+
+  .gemini-glow-effect::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Reverse continuous loop */
+    background: conic-gradient(from 180deg, #06b6d4, #d946ef, #8b5cf6, #3b82f6, #06b6d4);
+    filter: blur(100px);
+    border-radius: 1rem;
+    animation: spin-slow-reverse 8s linear infinite;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #334155;
+    /* slate-700 */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+    /* slate-600 */
+  }
+}
