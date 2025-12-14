@@ -16,7 +16,8 @@ import shutil
 # --- Configuration ---
 MODEL_PATH = "piyush_clone.pth"
 # Check system path first (Docker), then local fallback
-STOCKFISH_PATH = shutil.which("stockfish") or "stockfish/stockfish-ubuntu-x86-64-avx2"
+STOCKFISH_PATH = shutil.which("stockfish") or "/usr/games/stockfish" or "stockfish/stockfish-ubuntu-x86-64-avx2"
+
 STOCKFISH_DEPTH = 15     # Standard
 PANIC_DEPTH = 22         # Deep check
 SAFETY_THRESHOLD_CP = 150 # Veto threshold
@@ -408,13 +409,14 @@ if os.path.exists("chess-frontend/dist"):
     async def serve_react_app(full_path: str):
         # Allow API calls to pass through
         if full_path.startswith("predict") or full_path.startswith("report_mistake"):
-             return {"error": "Not Found"} # API routes should be handled by their handlers
+             return {"error": "Not Found"} 
         
-        # Serve index.html for any other route (SPA)
-        file_path = f"chess-frontend/dist/{full_path}"
+        # Check if file exists in dist
+        file_path = os.path.join("chess-frontend/dist", full_path)
         if os.path.exists(file_path) and os.path.isfile(file_path):
              return FileResponse(file_path)
              
+        # Fallback to SPA
         return FileResponse("chess-frontend/dist/index.html")
 
 if __name__ == "__main__":
