@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Backend Code
 COPY main.py .
 
-
+COPY piyush_clone.pth .
 # Copy Built Frontend from Stage 1
 COPY --from=build /app/frontend/dist ./chess-frontend/dist
 
